@@ -2,6 +2,9 @@
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
+// Initialize the high score from local storage or default to 0
+let highScore = parseInt(localStorage.getItem("highScore")) || 0;
+
 const character = {
     x: 50,
     y: canvas.height / 2 - 12, // Adjusted for character height
@@ -57,6 +60,13 @@ function updateScore() {
     ctx.font = "24px Arial";
     ctx.fillText(`Score: ${score}`, 10, 30);
     ctx.fillText(`High Score: ${highScore}`, 10, 60);
+}
+
+// Inside the gameLoop function, after updating the high score
+if (score > highScore) {
+    highScore = score;
+    // Update the high score in local storage
+    localStorage.setItem("highScore", highScore);
 }
 
 function showGameOverScreen() {
