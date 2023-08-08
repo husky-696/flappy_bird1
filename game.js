@@ -1,6 +1,8 @@
 
+
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
+
 
 
 const character = {
@@ -25,10 +27,13 @@ const pipeGap = 150;
 const pipeWidth = 60;
 
 let score = 0;
-let highScore = 0;
 let gameOver = false;
 let gamePaused = false;
 const jumpSound = new Audio("jump_sound.mp3"); // Provide your sound file
+
+// Load high score from local storage
+let highScore = localStorage.getItem("highScore") || 0;
+highScore = parseInt(highScore);
 
 
 // Rest of the code
@@ -70,7 +75,13 @@ function showGameOverScreen() {
     if (score > highScore) {
         highScore = score;
         ctx.fillText("New High Score!", canvas.width / 2 - 100, canvas.height / 2 + 80);
+
+    
+
+        // Update the high score in local storage
+        localStorage.setItem("highScore", highScore);
     }
+  
 
     ctx.fillText("Press Space bar to Restart", canvas.width / 2 - 120, canvas.height / 2 + 120);
 }
